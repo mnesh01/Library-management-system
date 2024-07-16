@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  line-height: 24px;
+}
+
+h4 {
+  font-size: 22px;
+  font-family: Roboto;
+  color: #1e1e1e;
+  line-height: 32px;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  background-color: #161616;
+}
+
+header nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header nav div h3 {
+  font-size: 34px;
+  font-family: Roboto;
+  color: #fff;
+  padding-left: 40px;
+}
+
+header nav div .menu-main {
+  width: fit-content;
+  height: fit-content;
+  list-style: none;
+  margin-left: 26px;
+}
+
+header nav div .menu-main li {
+  display: inline-block;
+}
+
+header nav div .menu-main li a {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+header nav .menu-member {
+  width: fit-content;
+  height: fit-content;
+  list-style: none;
+  margin-right: 40px;
+}
+
+header nav .menu-member li {
+  display: inline-block;
+}
+
+header nav .menu-member li a {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+/*changed*/
+.header-login-a {
+  background-color: #1196d4;
+  border-radius: 4px;
+}
+
+header a:hover {
+  opacity: 80%;
+}
+body {
+  background-image: url("img/image1.jpg");
+  background-size: 1450px 1000px;
+}
+nav {
+  width: 100%;
+  height: 100px;
+}
+/* nav movement*/
+/*ul {
+  margin-left: 350px;
+}
+ul li {
+  list-style: none;
+  display: inline-block;
+  line-height: 150px;
+}
+ul li a {
+  display: block;
+  font-size: 24px;
+  font-family: arial;
+  color: #1e1e1e;
+  padding: 0 20px;
+}
+ul li a:hover {
+  color: blue;
+}
+no dots since it not classes */
+form {
+  display: block;
+  margin: 0 auto;
+  background: white;
+  max-width: 350px;
+  padding: 40px;
+  border-radius: 4px;
+  border: 4px solid white;
+}
+input {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 0.5px solid;
+  margin: 10px 0;
+}
+form label {
+  display: flex;
+  padding: 0.1rem;
+}

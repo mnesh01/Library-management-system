@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .wrapper {
+    width: 900px;
+    margin: 0 auto;
+  }
+  
+  p {
+    font-size: 16px;
+    font-family: Roboto;
+    color: #fff;
+    line-height: 24px;
+  }
+  
+  h4 {
+    font-size: 22px;
+    font-family: Roboto;
+    color: #1e1e1e;
+    line-height: 32px;
+  }
+  
+  header {
+    width: 100%;
+    height: 80px;
+    background-color: #161616;
+  }
+  
+  header nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header nav div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  header nav div h3 {
+    font-size: 34px;
+    font-family: Roboto;
+    color: #fff;
+    padding-left: 40px;
+  }
+  
+  header nav div .menu-main {
+    width: fit-content;
+    height: fit-content;
+    list-style: none;
+    margin-left: 26px;
+  }
+  
+  header nav div .menu-main li {
+    display: inline-block;
+  }
+  
+  header nav div .menu-main li a {
+    font-size: 16px;
+    font-family: Roboto;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+  }
+  
+  header nav .menu-member {
+    width: fit-content;
+    height: fit-content;
+    list-style: none;
+    margin-right: 40px;
+  }
+  
+  header nav .menu-member li {
+    display: inline-block;
+  }
+  
+  header nav .menu-member li a {
+    font-size: 16px;
+    font-family: Roboto;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+  }
+  
+  .header-login-a {
+    background-color: #3f97ef;
+    border-radius: 4px;
+  }
+  
+  header a:hover {
+    opacity: 80%;
+  
+  }
+  body {
+    background-image: url("img1/image1.jpg");
+    background-size: 1450px 1000px;
+  }
+  nav {
+    width: 100%;
+    height: 100px;
+  }
+  
+  .login-page {
+    width: 400px;
+    padding: 10% 0 0;
+    margin: auto;
+  }
+  .form {
+    position: relative;
+    background: white;
+    max-width: 400px;
+    margin: 0 auto 100px;
+    padding: 60px;
+    text-align: center;
+  }
+  /* form imput looks */
+  .form input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    margin: 0 0 15px;
+    padding: 15px; /* inside box sizes*/
+    box-sizing: border-box;
+    font-size: 15px;
+  }
+  .form button {
+    text-transform: uppercase;
+    background: rgba(165, 124, 59, 0.472);
+    width: 100%; /*length of login*/
+    padding: 15px;
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .form .message a {
+    color: #4caf50;
+  }
+  

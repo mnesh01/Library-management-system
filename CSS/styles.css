@@ -1,0 +1,399 @@
+:root{
+  font-size: 16px;
+
+  --dur: 400ms;
+  --res-typo: clamp(.5rem,5vw,2rem);
+  --header-size: 5rem;
+}
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-image: url("img/image1.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 7rem;
+}
+
+
+.wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
+a{
+  text-decoration: none;
+  display: inline-block;
+}
+ul, li{
+  list-style: none;
+}
+p {
+  font-size: 1rem;
+  font-family: Roboto;
+  color: #fff;
+  line-height: 2rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-family: Roboto;
+  color: #1e1e1e;
+  line-height: 2.5rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--header-size);
+  background-color: rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15);
+  z-index: 999999;
+}
+
+header nav {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+header nav label {
+  font-size: 1em;
+  font-weight: bolder;
+  padding: .5em 1em;
+  text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+  font-family: Roboto;
+  color: #fff;
+  background-color: rgba(0,0,0,.15);
+  border-radius: 100vw;
+}
+
+header nav .menu-main {
+  position: relative;
+  width: fit-content;
+  list-style: none;
+}
+
+header nav .menu-main li {
+  display: inline-block;
+}
+
+header nav .menu-main li a,
+header nav .menu-member li a{
+  position: relative;
+  display: inline-block;
+  font-size: .8rem;
+  text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+  font-family: Roboto;
+  color: #fff;
+  text-decoration: none;
+  padding: .7em 1em;
+  margin: 0 .5em;
+  overflow: hidden;
+}
+.menu-main a::before{
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(255,255,255,.5);
+  border-radius: 100vw;
+  transform: translateX(-105%);
+  transition: var(--dur) ease-in-out;
+
+}
+.menu-main a:hover::before{
+  transform: translateX(0);
+}
+
+header nav .menu-member {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  list-style: none;
+}
+
+header nav .menu-member li {
+  display: inline-block;
+}
+.menu-member a{
+  border-radius: 100vw;
+  font-size: .8rem;
+  background-color: rgba(0,0,0,.15);
+  box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+  transition: var(--dur) ease-in-out;
+}
+.menu-member li:last-child a{
+  background-color: rgba(0,0,0,.45);
+}
+
+.menu-member a:hover,
+.menu-member a:focus{
+  transform: translateY(-5px);
+  box-shadow: 5px 5px 2px rgba(0,0,0,.25);
+}
+form.signup-form,
+form.login-form,
+form.update-form{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: clamp(15rem, 400px, 25rem);
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+form.signup-form > h3,
+form.login-form > h3,
+form.update-form > h3{
+  color: white;
+  font-weight: bolder;
+  text-shadow: 2px 2px 1px black;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+form.signup-form input,
+form.login-form input,
+form.update-form input{
+  display: inline-block;
+  width: 100%;
+  padding: .5rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 2px solid rgba(0,0,0,.7);
+}
+form.signup-form label,
+form.login-form label,
+form.update-form label{
+  display: flex;
+  padding: .1rem;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+}
+form.signup-form button,
+form.login-form button,
+form.update-form button,
+form.update-form a{
+  display: inline-block;
+  padding: .5rem 1rem;
+  border-radius: 100vw;
+  background-color: rgba(0,0,0,.15);
+  box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+  font-size: 1rem;
+  color: white;
+  border: 1px solid white;
+  text-transform: uppercase;
+  transition: var(--dur) ease-in-out;
+}
+form.signup-form button:hover,
+form.login-form button:hover,
+form.update-form button:hover,
+form.update-form a:hover{
+  background-color: rgba(255,255,255,.3);
+  color: black;
+}
+
+.sidebar{
+  position: fixed;
+  left: 0;
+  top: var(--header-size);
+  display: block;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 350px;
+  width: 15rem;
+  background-color: rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15);
+  transition: all var(--dur) ease-in-out;
+  transform: translateX(-95%);
+}
+.sidebar:hover{
+  transform: translateX(0);
+}
+.sidebar::before{
+  content: '>';
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  white-space: pre;
+  top: 0;right: -50px;
+  font-weight: bolder;
+  font-size: 2.5rem;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-bottom-right-radius: 1rem;
+  background-color: rgba(255,255,255,.25);
+  border: 2px solid rgba(255,255,255,.5);
+  cursor: pointer;
+  transition: all var(--dur) ease-in-out;
+}
+.sidebar:hover::before{
+  content: '<';
+}
+.sidebar h2{
+  font-size: 2rem;
+  color: white;
+  background-color: rgba(0,0,0,.25);
+  text-align: center;
+}
+.sidebar .nav a{
+  display: inline-block;
+  width: 100%;
+  font-size: 1rem;
+  padding: .5em 1em;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  transition: all var(--dur) ease-in-out;
+}
+.sidebar .nav a:hover{
+  background-color: rgba(0,0,0,.25);
+}
+
+.content_table{
+  display: block;
+  border-collapse: collapse;
+  border-radius: 5px;
+  border: 1px solid white;
+  background-color: rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15);
+}
+.content_table thead{
+  background-color: rgba(0,0,0,.25);
+}
+.content_table td,
+.content_table th{
+  padding: .5rem;
+  font-size: 1rem;
+  border: 1px solid rgba(0,0,0,.25);
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+.content_table a.edit,
+.content_table a.delete{
+  display: inline-block;
+  padding: .5rem 1rem;
+  border-radius: 100vw;
+  border: 1px solid rgba(255,255,255,.5);
+  background-color: rgba(255,255,255,.2);
+  text-decoration: none;
+  color: white;
+  transition: all var(--dur) ease-in-out;
+}
+.content_table a.edit:hover{
+  background-color: lightblue;
+}
+.content_table a.delete:hover{
+  background-color: firebrick;
+}
+
+.info-container{
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+.info-container > .block{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 15rem;
+  background-color: rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 5px rgba(0,0,0,.15);
+  border-radius: .5rem;
+  overflow: hidden;
+}
+.info-container > .block > h2{
+  text-align: center;
+  width: 100%;
+  padding: .5rem 0;
+  background-color: rgba(0,0,0,.25);
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+.info-container > .block > p{
+  text-shadow: 2px 2px 2px black;
+}
+.info-container > .block > a{
+  display: inline-block;
+  padding: .5rem 1rem;
+  width: fit-content;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  text-shadow: 2px 2px 2px black;
+  border: 1px solid rgba(255,255,255,.5);
+  background-color: rgba(0,0,0,.25);
+  border-radius: 100vw;
+  transition: all var(--dur) ease-in-out;
+}
+.info-container > .block > a:hover{
+  background-color: rgba(255,255,255,.25);
+}
+.view-users-h2{
+  padding: .5rem .1rem;
+  color: white;
+  text-align: center;
+  width: 50%;
+  text-shadow: 2px 2px 2px black;
+  text-transform: capitalize;
+}
+
+/*tablet*/
+@media only screen and (max-width: 768px) {
+  :root {
+    font-size: 10px;
+  }
+  header{
+    height: auto;
+  }
+  header nav{
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+  }
+  .sidebar{
+    margin-top: 1.5rem;
+  }
+  .info-container{
+    flex-direction: column;
+  }
+}
+/*mobile*/
+@media only screen and (max-width: 400px) {
+  :root {
+    font-size: 6px;
+  }
+
+}
