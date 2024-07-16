@@ -1,0 +1,674 @@
+<?php
+require "config.php";
+
+// if the form's submit button is clicked, we need to process the form
+if (isset($_POST['submit'])) {
+  // get variables from the form
+  $BOOK_ID = $_POST['BOOK_ID'];
+  $TITLE = $_POST['TITLE'];
+  $COURSE = $_POST['COURSE'];
+  $AUTHOR_NAME = $_POST['AUTHOR_NAME'];
+  $PUBLISHER = $_POST['PUBLISHER'];
+  $COPIES = $_POST['COPIES'];
+
+  //write sql query
+
+  $sql = "INSERT INTO BOOKS ('BOOK_ID', 'TITLE', 'COURSE', 'AUTHOR_NAME', 'PUBLISHER','COPIES') VALUES ('$BOOK_ID', '$TITLE', '$COURSE, '$AUTHOR_NAME', '$PUBLISHER','$COPIES')";
+
+  // execute the query
+
+  $result = $conn->query($sql);
+
+  if ($result == TRUE) {
+    echo "BOOK SUCCESSFULLY ADDED.";
+  } else {
+    echo "Error:" . $sql . "<br>" . $conn->error;
+  }
+
+  $conn->close();
+}
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADD BOOK</title>
+  <link rel="stylesheet" href="lib.css">
+</head>
+<html>
+
+<body>
+
+  <header>
+    <nav>
+      <div>
+        <h3>LIBRARY MANAGEMENT SYSTEM</h3>
+        <ul class="menu-main">
+          <li><a href="index.php">HOME</a></li>
+          <li><a href="books.php">BOOKS</a></li>
+        </ul>
+      </div>
+      <ul class="menu-member">
+        <?php
+        if (isset($_SESSION["users_id"])) {
+        ?>
+          <li><a href="#"><?php echo $_SESSION["name"]; ?></a></li>
+          <li><a href="includes/logout.inc.php" class="header-login-a">LOGOUT</a></li>
+        <?php
+        } else {
+        ?>
+          <li><a href="signup.php">SIGN UP</a></li>
+          <li><a href="login.php" class="header-login-a">LOGIN</a></li>
+        <?php
+
+        }
+        ?>
+      </ul>
+    </nav>
+  </header>
+
+  <h2>ADDBOOK</h2>
+
+  <div class="addbook">
+    <div class="form">
+      <form action="" method="POST">
+        <input type="text" name="BOOK_ID" placeholder="BOOK ID" />
+        <input type="text" name="TITLE" placeholder="BOOK TITLE" />
+        <input type="text" name="COURSE" placeholder="AUTHOR NAME" />
+        <input type="text" name="AUTHOR_NAME" placeholder="COURSE" />
+        <input type="text" name="PUBLISHER" placeholder="PUBLISHER" />
+        <input type="text" name="COPIES" placeholder="COPIES" />
+
+        <button type="SEND" name="submit">SEND</button>
+    </div>
+  </div>
+  <!--
+  <form action="" method="POST">
+    <fieldset>
+      <input type="text" name="BOOK_ID" placeholder="BOOK ID" />
+      <br>
+      <input type="text" name="TITLE" placeholder="BOOK TITLE" />
+      <br>
+      <input type="text" name="COURSE" placeholder="AUTHOR NAME" />
+      <br>
+      <input type="text" name="AUTHOR_NAME" placeholder="COURSE" />
+      <br>
+      <input type="text" name="PUBLISHER" placeholder="PUBLISHER" />
+      <br>
+      <input type="text" name="COPIES" placeholder="COPIES" />
+      <br>
+
+      <button type="SEND" name="submit">SEND</button>
+
+    </fieldset>
+  </form>
+      -->
+</body>
+
+</html>
+
+function get_author_count()
+{
+	$connection = mysqli_connect("localhost", "root", "");
+	$db = mysqli_select_db($connection, "PR");
+	$author_count = "";
+	$query = "select count(*) as author_count from authors";
+	$query_run = mysqli_query($connection, $query);
+	while ($row = mysqli_fetch_assoc($query_run)) {
+		$author_count = $row['author_count'];
+	}
+	return ($author_count);
+}
+
+
+
+
+
+<?php
+require('functions.php');
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>User Dashboard</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width,intial-scale=1">
+	<!--<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script> -->
+	<style type="text/css">
+		#side_bar {
+			background-color: whitesmoke;
+			padding: 50px;
+			width: 300px;
+			height: 450px;
+		}
+	</style>
+</head>
+
+<body>
+	<!DOCTYPE html>
+	<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+
+	
+		<?php include 'header.php'; ?>
+
+	</html>
+	<nav class="navbar">
+		<div class="container-fluid">
+			<font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name']; ?></strong></span></font>
+			<font style="color: white"><span><strong>Email: <?php echo $_SESSION['email']; ?></strong></span></font>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">My Profile</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="view_profile.php">View Profile</a>
+						<a class="dropdown-item" href="edit_profile.php"> Edit Profile</a>
+						<a class="dropdown-item" href="change_password.php">Change Password</a>
+					</div>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="../logout.php">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav navbar-center">
+				<li class="nav-item">
+					<a href="admin_dashboard.php" class="nav-link">Dashboard</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Book</a>
+					<div class="dropdown-menu">
+						<a href="add_book.php" class="dropdown-item">Add New Book</a>
+						<a href="manage_book.php" class="dropdown-item">Manage Books</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
+					<div class="dropdown-menu">
+						<a href="add_cat.php" class="dropdown-item">Add New Category</a>
+						<a href="manage_cat.php" class="dropdown-item">Manage Category</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a href="issue_book.php" class="nav-link">Issue Book</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Registered Users:</div>
+				<div class="card-body">
+					<p class="card-text">No. of total users: <?php echo get_user_count(); ?></p>
+					<a href="regusers.php" class="btn btn-danger" target="_blank">View Registered Users</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Registered Books:</div>
+				<div class="card-body">
+					<p class="card-text">No. of availbale books: <?php echo get_book_count(); ?></p>
+					<a href="regbooks.php" class="btn btn-primary" target="_blank">View Registered Books</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Issued Books:</div>
+				<div class="card-body">
+					<p class="card-text">No. Issued Books: <?php echo get_issued_book_count(); ?></p>
+					<a href="view_issued_book.php" class="btn btn-success" target="_blank">View Issued books</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+<?php
+require('functions.php');
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>User Dashboard</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width,intial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		#side_bar {
+			background-color: whitesmoke;
+			padding: 50px;
+			width: 300px;
+			height: 450px;
+		}
+	</style>
+</head>
+
+<body>
+
+
+
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav navbar-center">
+				<li class="nav-item">
+					<a href="admin_dashboard.php" class="nav-link">Dashboard</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Book</a>
+					<div class="dropdown-menu">
+						<a href="add_book.php" class="dropdown-item">Add New Book</a>
+						<a href="manage_book.php" class="dropdown-item">Manage Books</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
+					<div class="dropdown-menu">
+						<a href="add_cat.php" class="dropdown-item">Add New Category</a>
+						<a href="manage_cat.php" class="dropdown-item">Manage Category</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Author</a>
+					<div class="dropdown-menu">
+						<a href="add_author.php" class="dropdown-item">Add New Author</a>
+						<a href="manage_author.php" class="dropdown-item">Manage Authors</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a href="issue_book.php" class="nav-link">Issue Book</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<span>
+	</span><br><br>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Registered Users:</div>
+				<div class="card-body">
+					<p class="card-text">No. of total users: <?php echo get_user_count(); ?></p>
+					<a href="regusers.php" class="btn btn-danger" target="_blank">View Registered Users</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Registered Books:</div>
+				<div class="card-body">
+					<p class="card-text">No. of availbale books: <?php echo get_book_count(); ?></p>
+					<a href="regbooks.php" class="btn btn-primary" target="_blank">View Registered Books</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card bg-light" style="width: 300px">
+				<div class="card-header">Issued Books:</div>
+				<div class="card-body">
+					<p class="card-text">No. Issued Books: <?php echo get_issued_book_count(); ?></p>
+					<a href="view_issued_book.php" class="btn btn-success" target="_blank">View Issued books</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+<?php
+require('functions.php');
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>User Dashboard</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width,intial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../bootstrap-4.4.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/juqery_latest.js"></script>
+	<script type="text/javascript" src="../bootstrap-4.4.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		#side_bar {
+			background-color: whitesmoke;
+			padding: 50px;
+			width: 300px;
+			height: 450px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="admin_dashboard.php">Library Management System(LMS)</a>
+			</div>
+			<font style="color: white"><span><strong>Welcome: <?php echo $_SESSION['name']; ?></strong></span></font>
+			<font style="color: white"><span><strong>Email: <?php echo $_SESSION['email']; ?></strong></span></font>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">My Profile</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="view_profile.php">View Profile</a>
+						<a class="dropdown-item" href="edit_profile.php"> Edit Profile</a>
+						<a class="dropdown-item" href="change_password.php">Change Password</a>
+					</div>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="../logout.php">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav navbar-center">
+				<li class="nav-item">
+					<a href="admin_dashboard.php" class="nav-link">Dashboard</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Book</a>
+					<div class="dropdown-menu">
+						<a href="add_book.php" class="dropdown-item">Add New Book</a>
+						<a href="manage_book.php" class="dropdown-item">Manage Books</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
+					<div class="dropdown-menu">
+						<a href="add_cat.php" class="dropdown-item">Add New Category</a>
+						<a href="" class="dropdown-item">Manage Category</a>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown">Author</a>
+					<div class="dropdown-menu">
+						<a href="add_author.php" class="dropdown-item">Add New Author</a>
+						<a href="" class="dropdown-item">Manage Authors</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a href="" class="nav-link">Issue Book</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<form action="" method="post">
+				<div class="form-group">
+					<label>BOOK ID:</label>
+					<input type="text" name="BOOK_ID" class="form-control" required="">
+				</div>
+				</select>
+				<div class="form-group">
+					<label>BOOK TITLE:</label>
+					<input type="text" name="TITLE" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>LIBRARY ID:</label>
+					<input type="text" name="libid" class="form-control" required="">
+				</div>
+				<div class="form-group">
+					<label>ISSUE DATE:</label>
+					<input type="text" name="ISSUE_DATE" class="form-control" value="<?php echo date("yy-m-d"); ?>" required="">
+				</div>
+				<div class="form-group">
+					<label>RETURN DATE:</label>
+					<input type="text" name="RETURN_DATE" class="form-control" value="<?php echo date("yy-m-d"); ?>" required="">
+				</div>
+		</div>
+		<button class="btn btn-primary" name="issue_book">Issue Book</button>
+
+		</form>
+	</div>
+	<div class="col-md-4"></div>
+	</div>
+</body>
+
+</html>
+
+<?php
+if (isset($_POST['issue_book'])) {
+	$connection = mysqli_connect("localhost", "root", "");
+	$db = mysqli_select_db($connection, "PR");
+	$query = "insert into ISSUE values($_POST[BOOK_ID],'$_POST[TITLE]',$_POST[libid],'$_POST[ISSUE_DATE]','$_POST[RETURN_DATE]')";
+	$query_run = mysqli_query($connection, $query);
+}
+?>
+
+
+
+
+
+
+
+
+
+<?php
+	require('functions.php');
+	session_start();
+	$connection = mysqli_connect("localhost","root","");
+	$db = mysqli_select_db($connection,"PR");
+	$libid = "";
+	$BOOK_ID = "";
+	$TITLE = "";
+	$ISSUE_DATE = "";
+	$RETURN_DATE = "";
+	$query = "select ISSUE.libid,ISSUE.BOOK_ID,ISSUE.TITLE,ISSUE.libid,ISSUE.ISSUE_DATE,ISSUE.RETURN-DATE from ISSUE left join users on ISSUE.libid = libid";
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Dashboard</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width,intial-scale=1">
+	<link rel="stylesheet" href="addashboard.css">
+	
+  		
+  	</style>
+</head>
+<body>
+<?php include "header.php" ?>
+<?php include "sidebar.php" ?>
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<form>
+			<table class="table-bordered" width="900px" style="text-align: center">
+				<tr>
+					<th>STUDENT LIBRARY ID:</th>
+					<th>BOOK ID:</th>
+					<th>TITLE:</th>
+					<th>ISSUE DATE:</th>
+					<th>RETURN DATE:</th>
+
+				</tr>
+				<?php
+					$query_run = mysqli_query($connection,$query);
+					while($row = mysqli_fetch_assoc($query_run)){
+						$libid = $row['libid'];
+						$BOOK_ID = $row['BOOK_ID'];
+						$TITLE = $row['TITLE'];
+						$ISSUE_DATE = $row['ISSUE_DATE'];
+						$RETURN_DATE = $row['RETURN_DATE'];
+				?>
+						<tr>
+							<td><?php echo $libid;?></td>
+							<td><?php echo $BOOK_ID;?></td>
+							<td><?php echo $TITLE;?></td>
+							<td><?php echo $ISSUE_DATE;?></td>
+							<td><?php echo $RETURN_DATE;?></td>
+						</tr>
+						<?php
+					}
+				?>
+			</table>
+		</form>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+	
+</body>
+</html>
+
+
+
+
+<!-- update original books -->
+
+<?php
+include "config.php";
+
+
+
+
+
+// if the form's update button is clicked, we need to process the form
+if (isset($_POST['update'])) {
+
+	$BOOK_ID = $_POST['BOOK_ID'];
+	$TITLE = $_POST['TITLE'];
+	$COURSE = $_POST['COURSE'];
+	$AUTHOR_NAME = $_POST['AUTHOR_NAME'];
+	$PUBLISHER = $_POST['PUBLISHER'];
+	$COPIES = $_POST['COPIES'];
+	//$id = $_POST['id'];
+
+
+
+	// write the update query
+	$sql = "UPDATE `BOOKS` SET  id=$id,`BOOK_ID`='$BOOK_ID',`TITLE`='$TITLE',`COURSE`='$COURSE',`AUTHOR_NAME`='$AUTHOR_NAME',`PUBLISHER`='$PUBLISHER', 'COPIES'='$COPIES' WHERE `id`='$id'";
+
+	// execute the query
+	$result = $conn->query($sql);
+
+	if ($result == TRUE) {
+		echo "Record updated successfully.";
+	} else {
+		echo "Error:" . $sql . "<br>" . $conn->error;
+	}
+}
+
+
+// if the 'id' variable is set in the URL, we know that we need to edit a record
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+
+	// write SQL to get user data
+	$sql = "SELECT * FROM `BOOKS` WHERE `id`='$id'";
+
+	//Execute the sql
+	$result = $conn->query($sql);
+
+	if ($result->num_rows > 0) {
+
+		while ($row = $result->fetch_assoc()) {
+			$BOOK_ID = $row['BOOK_ID'];
+			$TITLE = $row['TITLE'];
+			$COURSE = $row['COURSE'];
+			$AUTHOR_NAME  = $row['AUTHOR_NAME'];
+			$PUBLISHER = $row['PUBLISHER'];
+			$COPIES = $row['COPIES'];
+		}
+
+?>
+		<h2>UPDATE BOOK</h2>
+		<form action="" method="post">
+			<fieldset>
+				<legend>Personal information:</legend>
+				First name:<br>
+				<input type="text" name="BOOK_ID" value="<?php echo $BOOK_ID; ?>">
+				<br>
+				Last name:<br>
+				<input type="text" name="TITLE" value="<?php echo $TITLE; ?>">
+				<br>
+				COURSE:<br>
+				<input type="text" name="COURSE" value="<?php echo $COURSE; ?>">
+				<br>
+				AUTHOR_NAME:<br>
+				<input type="text" name="AUTHOR_NAME" value="<?php echo $AUTHOR_NAME; ?>">
+				<br>
+				PUBLISHER:<br>
+				<input type="text" name="PUBLISHER" value="<?php echo $PUBLISHER; ?>">
+				<br>
+				COPIES:<br>
+				<input type="text" name="COPIES" value="<?php echo $COPIES; ?>">
+				<br>
+
+				<!-- <input type="submit" value="update" name="update"> -->
+				<button name="update">edit</button>
+			</fieldset>
+		</form>
+
+		</body>
+
+		</html>
+
+
+
+
+<?php
+	} else {
+		// If the 'id' value is not valid, redirect the user back to view.php page
+		header('Location: view.php');
+	}
+}
+?>
+
+
+
+
+
+
+
+
+
+if (isset($_SESSION["users_id"])) {
+                ?>
+                <li><a href="#"><?php echo $_SESSION["name"]; ?></a></li>
+                <li><a href="includes/logout.inc.php" class="header-login-a">LOGOUT</a></li>
+                <?php
+            } else {
+                ?>
+                <li><a href="signup.php">SIGN UP</a></li>
+                <li><a href="login.php" class="header-login-a">LOGIN</a></li>
+                <?php
+            }
